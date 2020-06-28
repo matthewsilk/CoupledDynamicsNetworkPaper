@@ -48,7 +48,7 @@ params1<-read.csv(file.path(paramsfolder,"model_params.csv"))
 params2<-read.csv(file.path(paramsfolder,"model_params2.csv"))
 
 ##set path to results files
-outputfolder<-file.path("output","results4")
+outputfolder<-file.path("output","results4/")
 
 ##################################################################################
 
@@ -130,8 +130,8 @@ dat$mcEpStartInf<-dat$EpStartInf-mean(dat$EpStartInf,na.rm=T)
 
 ##need to read in one of the parameter files again due to naming issues
 ##I need both because of how I coded stuff below
-p2<-read.csv(paste0(path0,"model_params2.csv"))
-params2<-read.csv(paste0(path0,"model_params2.csv"))
+p2<-read.csv(paste0(paramsfolder,"model_params2.csv"))
+params2<-read.csv(paste0(paramsfolder,"model_params2.csv"))
 
 ##################################################################################
 
