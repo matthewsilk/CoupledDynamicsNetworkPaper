@@ -1,11 +1,11 @@
 ##Load packages
-require(lme4)
-require(viridis)
-require(car)
-require(boot)
-require(igraph)
-require(scatterplot3d)
-require(sjPlot)
+library(lme4)
+library(viridis)
+library(car)
+library(boot)
+library(igraph)
+library(scatterplot3d)
+library(sjPlot)
 
 ##Define functions used in generation of dataframe
 
