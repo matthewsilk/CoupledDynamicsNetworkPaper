@@ -40,18 +40,15 @@ es_finder<-function(object){
 ##################################################################################
 
 ##Set path to parameter files
-path0<-"C:/Users/matth/Dropbox/NinaCollab_Covid/"
+sourcefolder <- "."
+paramsfolder <- "params"
 
 ##read in parameter files
-params1<-read.csv(paste0(path0,"model_params.csv"))
-params2<-read.csv(paste0(path0,"model_params2.csv"))
+params1<-read.csv(file.path(paramsfolder,"model_params.csv"))
+params2<-read.csv(file.path(paramsfolder,"model_params2.csv"))
 
 ##set path to results files
-path<-"C:/Users/matth/Dropbox/NinaCollab_Covid/results/HealthPaper_HE/"
-
-##Set path to networks
-pathn<-"C:/Users/matth/Dropbox/NinaCollab_Covid/networks2/"
-
+outputfolder<-file.path("output","results4/")
 
 ##################################################################################
 
@@ -66,7 +63,7 @@ c<-1
 for(nt in c(1,2,3,4,5,6,7,8,9)){
   for(md in seq(3,77,1)){
     for(r in 1:5){
-      tmp_in<-readRDS(paste0(path,"nets",params1$NetSelect[nt],"mods",params2$ModSelect[md],"rep",r,".RDS"))
+      tmp_in<-readRDS(paste0(outputfolder,"nets",params1$NetSelect[nt],"mods",params2$ModSelect[md],"rep",r,".RDS"))
       conc_res[[c]]<-tmp_in[[1]]
       exp_res[[c]]<-tmp_in[[2]]
       inf_res[[c]]<-tmp_in[[3]]
@@ -133,8 +130,8 @@ dat$mcEpStartInf<-dat$EpStartInf-mean(dat$EpStartInf,na.rm=T)
 
 ##need to read in one of the parameter files again due to naming issues
 ##I need both because of how I coded stuff below
-p2<-read.csv(paste0(path0,"model_params2.csv"))
-params2<-read.csv(paste0(path0,"model_params2.csv"))
+p2<-read.csv(paste0(paramsfolder,"model_params2.csv"))
+params2<-read.csv(paste0(paramsfolder,"model_params2.csv"))
 
 ##################################################################################
 
@@ -331,7 +328,7 @@ mtext(paste0("Weak Awareness"),side=1,adj=0.95,line=-4.5,cex=1)
 ##Code for Figure 1a and b
 
 #read in network and filter so that it is only young adults of one predisposition
-n_plot<-readRDS(paste0(pathn,"88net_and_parents.RDS"))
+n_plot<-readRDS(paste0(networksfolder,"88net_and_parents.RDS"))
 n_plotB<-n_plot[[1]][c(1:240,481:1110,1741:1870),c(1:240,481:1110,1741:1870)]
 n_plotBy<-n_plot[[1]][481:1110,481:1110]
 
@@ -351,7 +348,7 @@ lo<-layout.fruchterman.reingold(n_plot3)
 plot(n_plot3,layout=lo,vertex.label=NA,vertex.size=6,vertex.color=col10[1],edge.color="grey")
 
 #Infection layer
-m_plot<-readRDS(paste0(pathn,"8net_and_parents.RDS"))
+m_plot<-readRDS(paste0(networksfolder,"8net_and_parents.RDS"))
 m_plotBy1<-m_plot[[1]][seq(481,1101,10),seq(481,1101,10)]
 m_plot3<-graph.adjacency(m_plotBy1,mode="undirected")
 plot(m_plot3,layout=lo,vertex.label=NA,vertex.size=6,vertex.color=col10[1],edge.color="grey")

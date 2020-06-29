@@ -4,21 +4,23 @@ library(igraph)
 library(boot)
 
 #where functions and parameter csvs are located
-path0<-"F:/HealthPaper/"
+sourcefolder <- "."
+paramsfolder <- "params"
 
 #where the networks are located
-path1<-"F:/HealthPaper/networks2/"
+networksfolder <-file.path(paramsfolder,"networks2")
 
-#where you want to save the results (already created)
-path3<-"F:/HealthPaper/results4/"
+#where you want to save the results 
+outputfolder<-file.path("output","results4")
+if(!dir.exists(outputfolder)) dir.create(outputfolder,recursive = T) #if output folder doesn't exists, create it.
+    
+source(file.path(sourcefolder,"FunctionsForHealthPaper.R"))
 
-source(paste0(path0,"FunctionsForHealthPaper.R"))
+params1<-read.csv(file.path(paramsfolder,"model_params.csv"))
+params2<-read.csv(file.path(paramsfolder,"model_params2.csv"))
+params3<-read.csv(file.path(paramsfolder,"he_params.csv"))
 
-params1<-read.csv(paste0(path0,"model_params.csv"))
-params2<-read.csv(paste0(path0,"model_params2.csv"))
-params3<-read.csv(paste0(path0,"he_params.csv"))
-
-net_params<-read.csv(paste0(path0,"network_params.csv"))
+net_params<-read.csv(file.path(paramsfolder,"network_params.csv"))
 
 #h_che<-1
 
@@ -38,8 +40,8 @@ pop_info<-pop_gen(pop_size,ncomms,prop_belA,prop_old,prop_young,prop_child)
 
 ############################################
 
-dis_input<-readRDS(paste0(path1,params1[nt,3],"net_and_parents.RDS"))
-info_input<-readRDS(paste0(path1,params1[nt,2],"net_and_parents.RDS"))
+dis_input<-readRDS(file.path(networksfolder,paste0(params1[nt,3],"net_and_parents.RDS")))
+info_input<-readRDS(file.path(networksfolder,paste0(params1[nt,2],"net_and_parents.RDS")))
 
 parents<-info_input[[2]]
 dis_mat<-dis_input[[1]]
@@ -256,7 +258,7 @@ for(i in 1:length(statuses)){
 OUT<-list(mod_concerns,mod_exps,mod_infs,mod_hosps,l_hea)
 names(OUT)<-c("concern","exps","infs","hosps","he")
 
-saveRDS(OUT, paste0(path3,"nets",params1$NetSelect[nt],"mods",params2$ModSelect[md],"rep",r,".RDS"))
+saveRDS(OUT, file.path(outputfolder,paste0("nets",params1$NetSelect[nt],"mods",params2$ModSelect[md],"rep",r,".RDS")))
 
 ###################################
 ###################################
