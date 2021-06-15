@@ -5,9 +5,10 @@ R code for the paper "Improving pandemic mitigation policies across communities 
 R code to conduct the simulations and analyse the results of the paper:
 
 - `FunctionsForHealthPaper.R` is the functions used for the network modelling
-- `ScriptForHealthPaper2.R` runs the simulations
-- `NetworksPaper1AnalysisCode_tidy.R` analyses the results to produce the figures and tables in the manuscript and supplementary
+- `ScriptforRunningSimulations_Revised.R` runs the simulations
+- `AnalysisScript_Revised.R` analyses the results to produce the figures and tables in the manuscript and supplementary
 
+older versions of these files are also included (prior to reviewer comments).
 
 The folder `params/` contains parameters sts and networks configuration:
 - Four `csv`s with the  parameter sets used to run the simulations and in the analysis.
